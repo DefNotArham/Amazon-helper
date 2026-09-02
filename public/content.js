@@ -23,13 +23,12 @@ const isAmazonProduct = () => {
   result.isProduct = true;
   result.asin = asin;
 
-  console.log(result);
   return result;
 };
 
-const result = isAmazonProduct();
-
-chrome.runtime.sendMessage({
-  type: "PRODUCT_DETECTED",
-  data: result,
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "GET_PRODUCT") {
+    const result = isAmazonProduct();
+    sendResponse(result);
+  }
 });

@@ -2,14 +2,6 @@ import ProductPage from "./pages/ProductPage";
 import NoProductPage from "./pages/NoProductPage";
 import { useEffect, useState } from "react";
 
-type productMessage = {
-  type: string;
-  data: {
-    isProduct: boolean;
-    asin: string;
-  };
-};
-
 function App() {
   const [product, setProduct] = useState<{ isProduct: boolean; asin: string }>({
     isProduct: false,
@@ -17,10 +9,14 @@ function App() {
   });
 
   useEffect(() => {
-    chrome.runtime.onMessage.addListener((message: productMessage) => {
-      if (message.type === "PRODUCT_DETECTED") {
-        setProduct(message.data);
-      }
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0]?.id;
+
+      if (!tabId) return;
+
+      chrome.tabs.sendMessage(tabId, { type: "GET_PRODUCT" }, (response) => {
+        if (response) setProduct(response);
+      });
     });
   }, []);
 
