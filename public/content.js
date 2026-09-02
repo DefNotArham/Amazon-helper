@@ -16,6 +16,10 @@ const isAmazonProduct = () => {
   const parts = url.split("/dp/");
   const asin = parts[1].split("?")[0].split("/")[0];
 
+  const isValidAsin = /^[A-Z0-9]{10}$/i.test(asin);
+
+  if (!isValidAsin) return result;
+
   result.isProduct = true;
   result.asin = asin;
 
@@ -23,4 +27,9 @@ const isAmazonProduct = () => {
   return result;
 };
 
-console.log("Is product:", isAmazonProduct());
+const result = isAmazonProduct();
+
+chrome.runtime.sendMessage({
+  type: "PRODUCT_DETECTED",
+  data: result,
+});
