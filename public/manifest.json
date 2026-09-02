@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Amazon Helper",
+  "version": "1.0.0",
+  "description": "An AI-powered Amazon shopping assistant.",
+
+  "action": {
+    "default_popup": "index.html"
+  },
+
+  "permissions": ["activeTab"],
+
+  "content_scripts": [
+    {
+      "matches": ["https://www.amazon.com/*"],
+      "js": ["content.js"]
+    }
+  ]
+}
