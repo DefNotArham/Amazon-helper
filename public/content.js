@@ -3,7 +3,7 @@ const hostname = window.location.hostname;
 
 const isAmazonProduct = () => {
   if (hostname !== "www.amazon.com") {
-    console.log("This is not an amazon url");
+    console.log("This is not an Amazon URL");
     return false;
   }
 
@@ -18,12 +18,12 @@ const getAsin = () => {
 
   const isValidAsin = /^[A-Z0-9]{10}$/i.test(asin);
 
-  if (!isValidAsin) return;
+  if (!isValidAsin) return undefined;
 
   return asin;
 };
 
-export const getTitle = () => {
+const getTitle = () => {
   const title = document.querySelector("#productTitle");
 
   return title?.textContent?.trim();
@@ -114,10 +114,7 @@ const getReviewSummary = () => {
 let product = {
   asin: undefined,
   title: undefined,
-  price: {
-    whole: undefined,
-    fraction: undefined,
-  },
+  price: undefined,
   discount: undefined,
   features: [],
   rating: undefined,
