@@ -8,6 +8,7 @@ let product = {
     whole: undefined,
     fraction: undefined,
   },
+  discount: undefined,
 };
 
 const isAmazonProduct = () => {
@@ -50,6 +51,12 @@ const getPrice = () => {
   return { whole: priceWhole, fraction: priceFraction };
 };
 
+const getDiscount = () => {
+  const discount = document.querySelector(".savingsPercentage");
+
+  return discount?.textContent?.trim();
+};
+
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
@@ -58,10 +65,12 @@ const getProduct = () => {
   const asin = getAsin();
   const title = getTitle();
   const price = getPrice();
+  const discount = getDiscount();
 
   product.asin = asin;
   product.title = title;
   product.price = price;
+  product.discount = discount;
 
   console.log(product);
 };
