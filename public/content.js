@@ -9,6 +9,7 @@ let product = {
     fraction: undefined,
   },
   discount: undefined,
+  features: [],
 };
 
 const isAmazonProduct = () => {
@@ -57,6 +58,20 @@ const getDiscount = () => {
   return discount?.textContent?.trim();
 };
 
+const getFeatures = () => {
+  const featureSection = document.querySelector("#feature-bullets");
+
+  if (!featureSection) return [];
+
+  const list = featureSection.querySelector("ul");
+
+  if (!list) return [];
+
+  const features = list.querySelectorAll("li");
+
+  return Array.from(features).map((feature) => feature.textContent?.trim());
+};
+
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
@@ -66,20 +81,15 @@ const getProduct = () => {
   const title = getTitle();
   const price = getPrice();
   const discount = getDiscount();
+  const features = getFeatures();
 
   product.asin = asin;
   product.title = title;
   product.price = price;
   product.discount = discount;
+  product.features = features;
 
   console.log(product);
 };
 
 getProduct();
-
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//   if (message.type === "GET_PRODUCT") {
-//     const result = isAmazonProduct();
-//     sendResponse(result);
-//   }
-// });
