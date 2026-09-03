@@ -1,17 +1,20 @@
 const url = window.location.href;
 const hostname = window.location.hostname;
 
-let product = {};
+let product = {
+  asin: "",
+  title: "",
+};
 
 const isAmazonProduct = () => {
-  let result = false;
-
   if (hostname !== "www.amazon.com") {
     console.log("This is not an amazon url");
-    return result;
+    return false;
   }
 
-  if (!url.includes("/dp/")) return result;
+  if (!url.includes("/dp/")) return false;
+
+  return true;
 };
 
 const getAsin = () => {
@@ -24,6 +27,28 @@ const getAsin = () => {
 
   return asin;
 };
+
+const getTitle = () => {
+  const title = document.querySelector("#productTitle");
+
+  return title?.textContent?.trim();
+};
+
+const getProduct = () => {
+  const isProduct = isAmazonProduct();
+
+  if (!isProduct) return;
+
+  const asin = getAsin();
+  const title = getTitle();
+
+  product.asin = asin;
+  product.title = title;
+
+  console.log(product);
+};
+
+getProduct();
 
 // chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 //   if (message.type === "GET_PRODUCT") {
