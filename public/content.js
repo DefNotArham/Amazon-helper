@@ -81,7 +81,7 @@ const getRating = () => {
 
   if (!text) return undefined;
 
-  return Number(text.split("")[0]);
+  return Number(text.split(" ")[0]);
 };
 
 const getProduct = () => {
