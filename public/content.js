@@ -12,6 +12,13 @@ let product = {
   features: [],
   rating: undefined,
   reviewCount: undefined,
+  ratingBreakdown: {
+    fiverStar: undefined,
+    fourStar: undefined,
+    threeStar: undefined,
+    twoStar: undefined,
+    oneStar: undefined,
+  },
 };
 
 const isAmazonProduct = () => {
@@ -95,6 +102,23 @@ const getReviewCount = () => {
 
   return Number(text.replace(/,/g, "").split(" ")[0]);
 };
+
+const getRatingBreakdown = () => {
+  const histogram = document.querySelector("#histogramTable");
+
+  if (!histogram) return undefined;
+
+  const ratings = histogram.querySelectorAll('[role="progressbar"]');
+
+  return {
+    fiveStar: Number(ratings[0]?.getAttribute("aria-valuenow")),
+    fourStar: Number(ratings[1]?.getAttribute("aria-valuenow")),
+    threeStar: Number(ratings[2]?.getAttribute("aria-valuenow")),
+    twoStar: Number(ratings[3]?.getAttribute("aria-valuenow")),
+    oneStar: Number(ratings[4]?.getAttribute("aria-valuenow")),
+  };
+};
+
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
