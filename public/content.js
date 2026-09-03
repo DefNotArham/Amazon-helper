@@ -131,6 +131,7 @@ const getProduct = () => {
   const features = getFeatures();
   const rating = getRating();
   const reviewCount = getReviewCount();
+  const reviewBreakdown = getRatingBreakdown();
 
   product.asin = asin;
   product.title = title;
@@ -139,6 +140,7 @@ const getProduct = () => {
   product.features = features;
   product.rating = rating;
   product.reviewCount = reviewCount;
+  product.ratingBreakdown = reviewBreakdown;
 
   console.log(product);
 };
