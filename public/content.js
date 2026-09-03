@@ -10,6 +10,8 @@ let product = {
   },
   discount: undefined,
   features: [],
+  rating: undefined,
+  reviewCount: undefined,
 };
 
 const isAmazonProduct = () => {
@@ -70,6 +72,16 @@ const getFeatures = () => {
   const features = list.querySelectorAll("li");
 
   return Array.from(features).map((feature) => feature.textContent?.trim());
+};
+
+const getRating = () => {
+  const rating = document.querySelector('[data-hook="rating-out-of-text"]');
+
+  const text = rating?.textContent?.trim();
+
+  if (!text) return undefined;
+
+  return Number(text.split("")[0]);
 };
 
 const getProduct = () => {
