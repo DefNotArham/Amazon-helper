@@ -106,6 +106,7 @@ const getProduct = () => {
   const discount = getDiscount();
   const features = getFeatures();
   const rating = getRating();
+  const reviewCount = getReviewCount();
 
   product.asin = asin;
   product.title = title;
@@ -113,6 +114,7 @@ const getProduct = () => {
   product.discount = discount;
   product.features = features;
   product.rating = rating;
+  product.reviewCount = reviewCount;
 
   console.log(product);
 };
