@@ -84,6 +84,17 @@ const getRating = () => {
   return Number(text.split(" ")[0]);
 };
 
+const getReviewCount = () => {
+  const reviewCount = document.querySelector(
+    '[data-hook="total-review-count"]',
+  );
+
+  const text = reviewCount?.textContent?.trim();
+
+  if (!text) return undefined;
+
+  return Number(text.replace(/,/g, "").split(" ")[0]);
+};
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
@@ -94,12 +105,14 @@ const getProduct = () => {
   const price = getPrice();
   const discount = getDiscount();
   const features = getFeatures();
+  const rating = getRating();
 
   product.asin = asin;
   product.title = title;
   product.price = price;
   product.discount = discount;
   product.features = features;
+  product.rating = rating;
 
   console.log(product);
 };
