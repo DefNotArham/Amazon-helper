@@ -2,8 +2,12 @@ const url = window.location.href;
 const hostname = window.location.hostname;
 
 let product = {
-  asin: "",
-  title: "",
+  asin: undefined,
+  title: undefined,
+  price: {
+    whole: undefined,
+    fraction: undefined,
+  },
 };
 
 const isAmazonProduct = () => {
@@ -34,6 +38,18 @@ const getTitle = () => {
   return title?.textContent?.trim();
 };
 
+const getPrice = () => {
+  const priceWhole = document
+    .querySelector(".a-price-whole")
+    ?.textContent?.trim();
+
+  const priceFraction = document
+    .querySelector(".a-price-fraction")
+    ?.textContent?.trim();
+
+  return { whole: priceWhole, fraction: priceFraction };
+};
+
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
@@ -41,9 +57,11 @@ const getProduct = () => {
 
   const asin = getAsin();
   const title = getTitle();
+  const price = getPrice();
 
   product.asin = asin;
   product.title = title;
+  product.price = price;
 
   console.log(product);
 };
