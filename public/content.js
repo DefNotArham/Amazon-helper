@@ -19,6 +19,7 @@ let product = {
     twoStar: undefined,
     oneStar: undefined,
   },
+  reviewSummary: undefined,
 };
 
 const isAmazonProduct = () => {
@@ -119,6 +120,16 @@ const getRatingBreakdown = () => {
   };
 };
 
+const getReviewSummary = () => {
+  const summary = document.querySelector('[data-testid="overall-summary"]');
+
+  if (!summary) return undefined;
+
+  const text = summary.querySelector("span");
+
+  return text?.textContent?.trim();
+};
+
 const getProduct = () => {
   const isProduct = isAmazonProduct();
 
@@ -132,6 +143,7 @@ const getProduct = () => {
   const rating = getRating();
   const reviewCount = getReviewCount();
   const reviewBreakdown = getRatingBreakdown();
+  const reviewSummary = getReviewSummary();
 
   product.asin = asin;
   product.title = title;
@@ -141,6 +153,7 @@ const getProduct = () => {
   product.rating = rating;
   product.reviewCount = reviewCount;
   product.ratingBreakdown = reviewBreakdown;
+  product.reviewSummary = reviewSummary;
 
   console.log(product);
 };
