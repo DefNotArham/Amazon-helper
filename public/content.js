@@ -1,10 +1,10 @@
+const url = window.location.href;
+const hostname = window.location.hostname;
+
+let product = {};
+
 const isAmazonProduct = () => {
-  const url = window.location.href;
-  const hostname = window.location.hostname;
-  let result = {
-    isProduct: false,
-    asin: "",
-  };
+  let result = false;
 
   if (hostname !== "www.amazon.com") {
     console.log("This is not an amazon url");
@@ -12,23 +12,22 @@ const isAmazonProduct = () => {
   }
 
   if (!url.includes("/dp/")) return result;
+};
 
+const getAsin = () => {
   const parts = url.split("/dp/");
   const asin = parts[1].split("?")[0].split("/")[0];
 
   const isValidAsin = /^[A-Z0-9]{10}$/i.test(asin);
 
-  if (!isValidAsin) return result;
+  if (!isValidAsin) return;
 
-  result.isProduct = true;
-  result.asin = asin;
-
-  return result;
+  return asin;
 };
 
-chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-  if (message.type === "GET_PRODUCT") {
-    const result = isAmazonProduct();
-    sendResponse(result);
-  }
-});
+// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+//   if (message.type === "GET_PRODUCT") {
+//     const result = isAmazonProduct();
+//     sendResponse(result);
+//   }
+// });
