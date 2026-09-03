@@ -158,3 +158,11 @@ const getProduct = () => {
 };
 
 getProduct();
+
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "GET_PRODUCT") {
+    getProduct();
+
+    sendResponse(product);
+  }
+});
