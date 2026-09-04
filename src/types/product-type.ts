@@ -5,7 +5,7 @@ export type Product = {
   discount: string | undefined;
   features: (string | undefined)[];
   rating: number | undefined;
-  reviewCount: number | undefined;
+  globalRatings: number | undefined;
   ratingBreakdown:
     | {
         fiveStar: number | undefined;

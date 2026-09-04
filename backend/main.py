@@ -25,34 +25,34 @@ app.add_middleware(
 
 
 class RatingBreakdown(BaseModel):
-    fiveStar: float | None
-    fourStar: float | None
-    threeStar: float | None
-    twoStar: float | None
-    oneStar: float | None
+    fiveStar: float | None = None
+    fourStar: float | None = None
+    threeStar: float | None = None
+    twoStar: float | None = None
+    oneStar: float | None = None
 
 
 class Product(BaseModel):
-    asin: str | None
-    title: str | None
-    price: float | None
-    discount: str | None
-    features: list[str | None]
-    rating: float | None
-    globalRatings: int | None
-    ratingBreakdown: RatingBreakdown | None
-    reviewSummary: str | None
+    asin: str | None = None
+    title: str | None = None
+    price: float | None = None
+    discount: str | None = None
+    features: list[str | None] = []
+    rating: float | None = None
+    globalRatings: int | None = None
+    ratingBreakdown: RatingBreakdown | None = None
+    reviewSummary: str | None = None
 
 
 class Review(BaseModel):
-    rating: float | None
-    title: str | None
-    text: str | None
+    rating: float | None = None
+    title: str | None = None
+    text: str | None = None
 
 
 class AnalyzeRequest(BaseModel):
     product: Product
-    reviews: list[Review]
+    reviews: list[Review] = []
 
 
 @app.post("/analyze")
