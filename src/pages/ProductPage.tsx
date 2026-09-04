@@ -1,10 +1,13 @@
 import type { Product } from "../types/product-type";
+import { useState } from "react";
 
 type ProductPageProps = {
   product: Product;
 };
 
 export default function ProductPage({ product }: ProductPageProps) {
+  const [analysis, setAnalysis] = useState("");
+
   return (
     <div className="w-[380px] max-w-full bg-gradient-to-b from-slate-50 to-white text-slate-900 font-sans antialiased">
       {/* Header / Brand */}
@@ -98,13 +101,8 @@ export default function ProductPage({ product }: ProductPageProps) {
           type="button"
           className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-slate-800 active:bg-slate-950 cursor-pointer"
           onClick={() => {
-            console.log("BUTTON CLICKED");
-
             chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-              console.log("TABS:", tabs);
-
               const tabId = tabs[0]?.id;
-              console.log("TAB ID:", tabId);
 
               if (!tabId) return;
 
@@ -112,8 +110,6 @@ export default function ProductPage({ product }: ProductPageProps) {
                 tabId,
                 { type: "GET_REVIEWS" },
                 async (reviews) => {
-                  console.log("REVIEWS RESPONSE:", reviews);
-
                   const response = await fetch(
                     "http://127.0.0.1:8000/analyze",
                     {
@@ -129,8 +125,8 @@ export default function ProductPage({ product }: ProductPageProps) {
                   );
 
                   const data = await response.json();
-
                   console.log("BACKEND RESPONSE:", data);
+                  setAnalysis(data.analysis);
                 },
               );
             });
@@ -155,6 +151,16 @@ export default function ProductPage({ product }: ProductPageProps) {
           Analysis usually takes a few seconds
         </p>
       </div>
+      <p className="mt-3 text-center text-[10.5px] text-slate-400">
+        Analysis usually takes a few seconds
+      </p>
+
+      {analysis && (
+        <div className="mt-4 rounded-2xl border border-slate-200 bg-white p-4">
+          <h3 className="text-sm font-semibold">AI Analysis</h3>
+          <p className="mt-2 text-xs whitespace-pre-wrap">{analysis}</p>
+        </div>
+      )}
     </div>
   );
 }

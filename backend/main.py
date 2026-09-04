@@ -57,6 +57,8 @@ class AnalyzeRequest(BaseModel):
 
 @app.post("/analyze")
 def analyzeProduct(data: AnalyzeRequest):
+    print("ANALYZE ENDPOINT HIT")
+
     product_data = data.product.model_dump()
     reviews_data = [review.model_dump() for review in data.reviews]
 
@@ -78,6 +80,7 @@ Give me:
 """
 
     interaction = client.interactions.create(model="gemini-3.6-flash", input=prompt)
+    print("GEMINI RESPONSE:", interaction.output_text)
     return {
         "analysis": interaction.output_text,
     }
