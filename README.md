@@ -1,75 +1,110 @@
-# React + TypeScript + Vite
+# Amazon Helper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+An AI-powered Chrome extension that analyzes Amazon products and customer reviews to help users make better buying decisions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Detects Amazon product pages
+- Gets product information from the page
+- Collects customer reviews
+- Uses Google Gemini to analyze the product and reviews
+- Shows AI-generated pros, cons, review sentiment, and buying recommendations
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+**Frontend**
 
-## Expanding the ESLint configuration
+- React
+- TypeScript/Javascript
+- Vite
+- Tailwind CSS
+- Chrome Extension Manifest V3
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+**Backend**
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Python
+- FastAPI
+- Google Gemini API
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## How It Works
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+Amazon Product Page
+        ↓
+    content.js
+        ↓
+Product Info + Reviews
+        ↓
+   React Extension
+        ↓
+   FastAPI Backend
+        ↓
+    Google Gemini
+        ↓
+    AI Analysis
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Project Structure
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+amazon-helper/
+├── public/
+│   ├── manifest.json
+│   └── content.js
+├── src/
+│   ├── pages/
+│   │   ├── ProductPage.tsx
+│   │   └── NoProductPage.tsx
+│   ├── types/
+│   │   └── product-type.ts
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── backend/
+│   ├── main.py
+│   ├── .env
+│   └── venv/
+├── index.html
+├── vite.config.ts
+└── package.json
 ```
+
+## Setup
+
+### Frontend
+
+```bash
+npm install
+npm run build
+```
+
+### Backend
+
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate
+pip install fastapi uvicorn google-genai python-dotenv
+```
+
+Create a `.env` file inside `backend`:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+```
+
+Start the backend:
+
+```bash
+uvicorn main:app --reload
+```
+
+### Load the Extension
+
+1. Open Chrome
+2. Go to `chrome://extensions`
+3. Enable Developer Mode
+4. Click Load unpacked
+5. Select the `dist` folder
+6. Open an Amazon product page
+7. Open Amazon Helper
