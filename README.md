@@ -15,10 +15,11 @@ An AI-powered Chrome extension that analyzes Amazon products and customer review
 **Frontend**
 
 - React
-- TypeScript/Javascript
+- TypeScript/JavaScript
 - Vite
 - Tailwind CSS
 - Chrome Extension Manifest V3
+- Claude — used to help build the frontend UI
 
 **Backend**
 
@@ -42,31 +43,6 @@ Product Info + Reviews
     Google Gemini
         ↓
     AI Analysis
-```
-
-## Project Structure
-
-```text
-amazon-helper/
-├── public/
-│   ├── manifest.json
-│   └── content.js
-├── src/
-│   ├── pages/
-│   │   ├── ProductPage.tsx
-│   │   └── NoProductPage.tsx
-│   ├── types/
-│   │   └── product-type.ts
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── backend/
-│   ├── main.py
-│   ├── .env
-│   └── venv/
-├── index.html
-├── vite.config.ts
-└── package.json
 ```
 
 ## Setup
@@ -104,7 +80,15 @@ uvicorn main:app --reload
 1. Open Chrome
 2. Go to `chrome://extensions`
 3. Enable Developer Mode
-4. Click Load unpacked
+4. Click **Load unpacked**
 5. Select the `dist` folder
 6. Open an Amazon product page
 7. Open Amazon Helper
+
+### Video
+
+https://github.com/user-attachments/assets/b36e1f66-fd1a-4f14-8b76-2ad295dc4738
+
+## AI Assistance
+
+Claude was used to help design and build the frontend UI.
