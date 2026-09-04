@@ -1,3 +1,4 @@
+import json
 import os
 
 from dotenv import load_dotenv
@@ -11,6 +12,7 @@ load_dotenv()
 api_key = os.getenv("GEMINI_API_KEY")
 
 client = genai.Client(api_key=api_key)
+
 
 app = FastAPI()
 
@@ -55,10 +57,27 @@ class AnalyzeRequest(BaseModel):
 
 @app.post("/analyze")
 def analyzeProduct(data: AnalyzeRequest):
-    print("PRODUCT:", data.product)
-    print("REVIEWS:", data.reviews)
+    product_data = data.product.model_dump()
+    reviews_data = [review.model_dump() for review in data.reviews]
 
+    prompt = f"""
+Analyze this Amazon product and its customer reviews.
+
+Product:
+{json.dumps(product_data, indent=2)}
+
+Reviews:
+{json.dumps(reviews_data, indent=2)}
+
+Give me:
+1. A short summary of the product
+2. The main pros
+3. The main cons
+4. Whether the reviews are mostly positive or negative
+5. Whether you think the product is worth buying
+"""
+
+    interaction = client.interactions.create(model="gemini-3.6-flash", input=prompt)
     return {
-        "message": "Received product and reviews",
-        "review_count": len(data.reviews),
+        "analysis": interaction.output_text,
     }
