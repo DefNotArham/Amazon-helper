@@ -111,6 +111,36 @@ const getReviewSummary = () => {
   return text?.textContent?.trim();
 };
 
+const getReviews = () => {
+  const reviewElements = document.querySelectorAll('[data-hook="review"]');
+
+  const reviews = Array.from(reviewElements)
+    .slice(0, 50)
+    .map((review) => {
+      const ratingText = review
+        .querySelector('[data-hook="review-star-rating"] .a-icon-alt')
+        ?.textContent?.trim();
+
+      const rating = ratingText ? Number(ratingText.split(" ")[0]) : undefined;
+
+      const title = review
+        .querySelector('[data-hook="reviewTitle"]')
+        ?.textContent?.trim();
+
+      const text = review
+        .querySelector('[data-hook="reviewText"]')
+        ?.textContent?.trim();
+
+      return {
+        rating,
+        title,
+        text,
+      };
+    });
+
+  return reviews;
+};
+
 let product = {
   asin: undefined,
   title: undefined,
