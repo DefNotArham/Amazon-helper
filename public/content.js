@@ -183,8 +183,6 @@ const getProduct = () => {
   product.reviewCount = reviewCount;
   product.ratingBreakdown = reviewBreakdown;
   product.reviewSummary = reviewSummary;
-
-  console.log(product);
 };
 
 getProduct();
@@ -194,5 +192,11 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     getProduct();
 
     sendResponse(product);
+  }
+
+  if (message.type === "GET_REVIEWS") {
+    const reviews = getReviews();
+
+    sendResponse(reviews);
   }
 });

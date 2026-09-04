@@ -89,7 +89,7 @@ export default function ProductPage({ product }: ProductPageProps) {
               <circle cx="12" cy="12" r="10" />
               <path d="M12 8v4l2.5 2.5" />
             </svg>
-            AI insights ready — price history, reviews &amp; alternatives
+            AI analysis based on product details and customer reviews
           </div>
         </div>
 
@@ -97,6 +97,26 @@ export default function ProductPage({ product }: ProductPageProps) {
         <button
           type="button"
           className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-slate-800 active:bg-slate-950 cursor-pointer"
+          onClick={() => {
+            console.log("BUTTON CLICKED");
+
+            chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+              console.log("TABS:", tabs);
+
+              const tabId = tabs[0]?.id;
+              console.log("TAB ID:", tabId);
+
+              if (!tabId) return;
+
+              chrome.tabs.sendMessage(
+                tabId,
+                { type: "GET_REVIEWS" },
+                (response) => {
+                  console.log("REVIEWS RESPONSE:", response);
+                },
+              );
+            });
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
