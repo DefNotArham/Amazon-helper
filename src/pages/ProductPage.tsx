@@ -1,5 +1,6 @@
 import type { Product } from "../types/product-type";
 import { useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 type ProductPageProps = {
   product: Product;
@@ -163,7 +164,7 @@ export default function ProductPage({ product }: ProductPageProps) {
           {/* Results card */}
           <div className="mt-3 max-h-72 overflow-y-auto rounded-2xl border border-slate-200/70 bg-white p-4 shadow-[0_1px_2px_rgba(15,23,42,0.04),0_8px_24px_-12px_rgba(15,23,42,0.08)]">
             <p className="whitespace-pre-wrap text-[12.5px] leading-relaxed text-slate-700">
-              {analysis}
+              <ReactMarkdown>{analysis}</ReactMarkdown>
             </p>
           </div>
 
