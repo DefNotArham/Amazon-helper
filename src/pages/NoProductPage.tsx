@@ -1,13 +1,4 @@
 import React from "react";
-
-/**
- * NoProductPage
- *
- * Shown inside the Amazon Helper Chrome extension popup when the user
- * opens the extension while NOT on an individual Amazon product page.
- *
- * UI only — no routing, no backend calls.
- */
 const NoProductPage: React.FC = () => {
   const handleGoToAmazon = () => {
     window.open("https://www.amazon.com", "_blank", "noopener,noreferrer");

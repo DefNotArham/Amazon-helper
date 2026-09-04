@@ -73,7 +73,7 @@ const getRating = () => {
   return Number(text.split(" ")[0]);
 };
 
-const getReviewCount = () => {
+const getGlobalRatings = () => {
   const reviewCount = document.querySelector(
     '[data-hook="total-review-count"]',
   );
@@ -148,7 +148,7 @@ let product = {
   discount: undefined,
   features: [],
   rating: undefined,
-  reviewCount: undefined,
+  globalRatings: undefined,
   ratingBreakdown: {
     fiveStar: undefined,
     fourStar: undefined,
@@ -170,7 +170,7 @@ const getProduct = () => {
   const discount = getDiscount();
   const features = getFeatures();
   const rating = getRating();
-  const reviewCount = getReviewCount();
+  const globalRatings = getGlobalRatings();
   const reviewBreakdown = getRatingBreakdown();
   const reviewSummary = getReviewSummary();
 
@@ -180,7 +180,7 @@ const getProduct = () => {
   product.discount = discount;
   product.features = features;
   product.rating = rating;
-  product.reviewCount = reviewCount;
+  product.globalRatings = globalRatings;
   product.ratingBreakdown = reviewBreakdown;
   product.reviewSummary = reviewSummary;
 };
