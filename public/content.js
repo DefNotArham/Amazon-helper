@@ -127,6 +127,7 @@ let product = {
     oneStar: undefined,
   },
   reviewSummary: undefined,
+  reviews: [],
 };
 
 const getProduct = () => {

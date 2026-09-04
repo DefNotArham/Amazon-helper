@@ -96,7 +96,7 @@ export default function ProductPage({ product }: ProductPageProps) {
         {/* Primary CTA */}
         <button
           type="button"
-          className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-slate-800 active:bg-slate-950"
+          className="mt-4 flex w-full items-center justify-center gap-1.5 rounded-xl bg-slate-900 px-4 py-2.5 text-[13px] font-semibold text-white shadow-sm transition-colors duration-150 hover:bg-slate-800 active:bg-slate-950 cursor-pointer"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
